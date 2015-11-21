@@ -74,7 +74,7 @@ action :create do
                            "--nodesdata #{map_base}.osrm.nodes " \
                            "--edgesdata #{map_base}.osrm.edges " \
                            "--ramindex #{map_base}.osrm.ramIndex " \
-                           "--fileIndex #{map_base}.osrm.fileindex " \
+                           "--fileindex #{map_base}.osrm.fileindex " \
                            "--namesdata #{map_base}.osrm.names " \
                            "#{map_file}",
               user:        user
