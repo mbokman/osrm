@@ -64,7 +64,19 @@ action :create do
     source    'upstart.conf.erb'
     cookbook  'osrm'
     variables description: 'OSRM route daemon',
-              daemon:      "#{daemon} -c #{config_file} #{map_file}",
+              # Do not use a config_file, see https://github.com/Project-OSRM/osrm-backend/issues/1372
+              #daemon:      "#{daemon} -c #{config_file} #{map_file}",
+              daemon:      "#{daemon} " \
+                           "--ip #{new_resource.listen} " \
+                           "--port #{new_resource.port} " \
+                           "--threads #{threads} " \
+                           "--hsgrdata #{map_base}.osrm.hsgr " \
+                           "--nodesdata #{map_base}.osrm.nodes " \
+                           "--edgesdata #{map_base}.osrm.edges " \
+                           "--ramindex #{map_base}.osrm.ramIndex " \
+                           "--fileIndex #{map_base}.osrm.fileindex " \
+                           "--namesdata #{map_base}.osrm.names " \
+                           "#{map_file}",
               user:        user
   end
 
